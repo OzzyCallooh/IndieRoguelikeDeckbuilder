@@ -3,7 +3,7 @@
 This is quick little Godot 4 project I created to recreate the gameplay mechanics
 of card games like _Slay the Spire_ and _Dominion_.
 
-![images/screenshot.png][]
+![](images/screenshot.png)
 
 ## Mechanics
 
