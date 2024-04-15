@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp0o1aidsgw5a"]
+
+[ext_resource type="Texture2D" uid="uid://cwabnmtoo7umc" path="res://images/card-back.png" id="1_6a0fi"]
+[ext_resource type="Script" path="res://prefabs/card.gd" id="1_mvu0b"]
+[ext_resource type="Texture2D" uid="uid://hqkpi8owohad" path="res://images/card-bg.png" id="3_4s8a0"]
+
+[node name="Card" type="Node2D"]
+script = ExtResource("1_mvu0b")
+
+[node name="Back" type="Node2D" parent="."]
+
+[node name="CardBack" type="Sprite2D" parent="Back"]
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("1_6a0fi")
+
+[node name="Front" type="Node2D" parent="."]
+
+[node name="CardBackground" type="Sprite2D" parent="Front"]
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("3_4s8a0")
+
+[node name="Control" type="Control" parent="Front"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.0
+offset_top = -100.0
+offset_right = 72.0
+offset_bottom = 101.0
+
+[node name="CardName" type="Label" parent="Front/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 128.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "Land"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="Front/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 3.0
+offset_right = -111.0
+offset_bottom = 39.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.74902, 0.74902, 0.74902, 1)
+theme_override_font_sizes/font_size = 20
+text = "1
+"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -73.0
+offset_top = -100.0
+offset_right = -33.0
+offset_bottom = -60.0
+scale = Vector2(3.67635, 5.01551)
+
+[node name="Pick" type="Button" parent="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Control/Pick" to="." method="_on_pick_pressed"]

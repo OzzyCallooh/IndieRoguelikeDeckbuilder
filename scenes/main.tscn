@@ -1,0 +1,188 @@
+[gd_scene load_steps=9 format=3 uid="uid://ca0k4b3a1bbdg"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_p2oma"]
+[ext_resource type="Texture2D" uid="uid://bp5bfbxxd02yq" path="res://images/background.png" id="3_2s5ef"]
+[ext_resource type="PackedScene" uid="uid://bp0o1aidsgw5a" path="res://prefabs/card.tscn" id="3_iwgg3"]
+[ext_resource type="AudioStream" uid="uid://bhukwyc4blko3" path="res://sounds/cardSlide8.ogg" id="4_4r5a8"]
+[ext_resource type="AudioStream" uid="uid://vl5s3rkdgj64" path="res://sounds/cardPlace1.ogg" id="5_mdjnn"]
+[ext_resource type="AudioStream" uid="uid://cht2gbscl2bc6" path="res://sounds/cardFan1.ogg" id="6_i5tfh"]
+[ext_resource type="AudioStream" uid="uid://dxosc1b3c82jg" path="res://sounds/cardPlace2.ogg" id="7_jlw16"]
+[ext_resource type="Script" path="res://scripts/quitter.gd" id="8_fb3wo"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_p2oma")
+
+[node name="DrawPile" type="Marker2D" parent="."]
+position = Vector2(56, 577)
+scale = Vector2(0.5, 0.5)
+
+[node name="Card" parent="DrawPile" instance=ExtResource("3_iwgg3")]
+
+[node name="DiscardPile" type="Marker2D" parent="."]
+position = Vector2(1099, 579)
+scale = Vector2(0.5, 0.5)
+
+[node name="Card" parent="DiscardPile" instance=ExtResource("3_iwgg3")]
+
+[node name="Hand" type="Node2D" parent="."]
+position = Vector2(532, 599)
+
+[node name="1" type="Marker2D" parent="Hand"]
+position = Vector2(-220, -54)
+rotation = -0.21383
+
+[node name="2" type="Marker2D" parent="Hand"]
+position = Vector2(-119, -72)
+rotation = -0.0942495
+
+[node name="3" type="Marker2D" parent="Hand"]
+position = Vector2(-3, -77)
+
+[node name="4" type="Marker2D" parent="Hand"]
+position = Vector2(111, -68)
+rotation = 0.148608
+
+[node name="5" type="Marker2D" parent="Hand"]
+position = Vector2(210, -46)
+rotation = 0.278989
+
+[node name="InPlay" type="Marker2D" parent="."]
+position = Vector2(597, 274)
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_2s5ef")
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -158.0
+offset_right = 114.0
+grow_vertical = 0
+color = Color(0.313726, 0.313726, 0.478431, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="BackgroundLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -114.0
+offset_top = -158.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.313726, 0.313726, 0.478431, 1)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Energy" type="ColorRect" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 345.0
+offset_top = -129.0
+offset_right = 438.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.313726, 0.313726, 0.478431, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/Energy"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.0
+offset_top = -56.0
+offset_right = 39.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnergyCount" type="Label" parent="HUD/Control/Energy/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndTurn" type="Button" parent="HUD/Control/Energy/VBoxContainer"]
+layout_mode = 2
+text = "End Turn"
+
+[node name="DrawCount" type="Label" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -552.0
+offset_top = 150.0
+offset_right = -488.0
+offset_bottom = 227.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 26
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiscardCount" type="Label" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 492.0
+offset_top = 153.0
+offset_right = 556.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 26
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DrawSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4r5a8")
+max_polyphony = 4
+
+[node name="PlaySound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_mdjnn")
+max_polyphony = 4
+
+[node name="ReshuffleSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_i5tfh")
+max_polyphony = 4
+
+[node name="DiscardSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_jlw16")
+max_polyphony = 4
+
+[node name="Quitter" type="Node" parent="."]
+script = ExtResource("8_fb3wo")
+quit_action = "quit"
+
+[connection signal="picked" from="DrawPile/Card" to="." method="_on_draw_pile_picked"]
+[connection signal="pressed" from="HUD/Control/Energy/VBoxContainer/EndTurn" to="." method="_on_end_turn_pressed"]

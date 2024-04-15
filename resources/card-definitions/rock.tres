@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CardDefn" load_steps=2 format=3 uid="uid://dfyje5fhuiupv"]
+
+[ext_resource type="Script" path="res://scripts/resources/card-definition.gd" id="1_lmfhb"]
+
+[resource]
+script = ExtResource("1_lmfhb")
+cost = 2
+name = "Rock"

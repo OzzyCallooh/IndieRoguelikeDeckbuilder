@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CardDefn" load_steps=2 format=3 uid="uid://dsp4g2bmygf25"]
+
+[ext_resource type="Script" path="res://scripts/resources/card-definition.gd" id="1_86xr8"]
+
+[resource]
+script = ExtResource("1_86xr8")
+cost = 1
+name = "Grass"
