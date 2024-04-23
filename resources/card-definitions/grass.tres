@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardDefn" load_steps=4 format=3 uid="uid://dsp4g2bmygf25"]
+[gd_resource type="Resource" script_class="CardDefn" load_steps=5 format=3 uid="uid://dsp4g2bmygf25"]
 
 [ext_resource type="Script" path="res://scripts/resources/card-definition.gd" id="1_86xr8"]
 [ext_resource type="Resource" uid="uid://c8b8lpqvw3lh7" path="res://resources/currencies/energy.tres" id="1_ifrey"]
 [ext_resource type="Resource" uid="uid://bieore0iqaijp" path="res://resources/currencies/coin.tres" id="2_fmmff"]
+[ext_resource type="Resource" uid="uid://c57n56qu502ck" path="res://resources/currencies/draw.tres" id="3_2soew"]
 
 [resource]
 script = ExtResource("1_86xr8")
@@ -10,6 +11,8 @@ cost_currencies = {
 ExtResource("1_ifrey"): 1
 }
 gives_currencies = {
-ExtResource("2_fmmff"): 1
+ExtResource("2_fmmff"): 1,
+ExtResource("1_ifrey"): 1,
+ExtResource("3_2soew"): 1
 }
 name = "Grass"

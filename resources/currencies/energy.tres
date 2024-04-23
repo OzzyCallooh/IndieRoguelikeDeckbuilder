@@ -7,4 +7,4 @@ script = ExtResource("1_bodm8")
 name = "Energy"
 symbol = "⚡"
 reset_on_turn_end = true
-given_at_start_of_turn = 3
+given_at_start_of_turn = 1

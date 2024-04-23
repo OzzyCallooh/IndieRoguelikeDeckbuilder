@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Currency" load_steps=2 format=3 uid="uid://c57n56qu502ck"]
+
+[ext_resource type="Script" path="res://scripts/resources/currency.gd" id="1_4uljx"]
+
+[resource]
+script = ExtResource("1_4uljx")
+name = "Draw"
+symbol = "🃏"
+reset_on_turn_end = true
+given_at_start_of_turn = 5

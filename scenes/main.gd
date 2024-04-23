@@ -4,12 +4,15 @@ var card_scene = load("res://prefabs/card.tscn")
 var CARDS = {
 	"grass": load("res://resources/card-definitions/grass.tres"),
 	"sand": load("res://resources/card-definitions/sand.tres"),
+	"laboratory": load("res://resources/card-definitions/laboratory.tres"),
 	"rock": load("res://resources/card-definitions/rock.tres")
 }
 var CURRENCIES = [
+	load("res://resources/currencies/draw.tres"),
 	load("res://resources/currencies/energy.tres"),
 	load("res://resources/currencies/coin.tres")
 ]
+var DRAW_CURRENCY = load("res://resources/currencies/draw.tres")
 
 var draw_pile: Array[CardDefn] = [
 	CARDS["grass"],
@@ -22,6 +25,8 @@ var draw_pile: Array[CardDefn] = [
 	CARDS["sand"],
 	CARDS["sand"],
 	CARDS["sand"],
+	CARDS["laboratory"],
+	CARDS["laboratory"],
 ]
 var hand: Array[Card] = []
 var discard_pile: Array[CardDefn] = []
@@ -37,7 +42,7 @@ var discard_pile: Array[CardDefn] = []
 var wallet: Wallet = null
 
 func start_turn():
-	draw_hand()
+	#draw_hand()
 	for currency: Currency in CURRENCIES:
 		wallet.give_currency(currency, currency.given_at_start_of_turn)
 
@@ -46,12 +51,6 @@ func end_turn():
 	for currency: Currency in CURRENCIES:
 		if currency.reset_on_turn_end:
 			wallet.set_currency(currency, 0)
-
-func draw_hand():
-	var tween = create_tween()
-	for _i in range(5):
-		tween.tween_callback(draw_card)
-		tween.tween_interval(0.2)
 
 func discard_hand():
 	while hand.size() > 0:
@@ -148,9 +147,24 @@ func update_energy_count():
 	energy_count.text = wallet.to_string()
 
 # Called when the node enters the scene tree for the first time.
+var debounce = false
 func _ready():
 	wallet = Wallet.new()
 	wallet.currency_changed.connect(update_energy_count.unbind(2))
+	wallet.currency_changed.connect(func (currency: Currency, amount: int):
+		if debounce:
+			return
+		print(currency.name + ": " + str(amount))
+		if currency == DRAW_CURRENCY and amount >= 1:
+			debounce = true
+			var tween = create_tween()
+			tween.tween_interval(0.1)
+			tween.tween_callback(func():
+				debounce = false
+				wallet.take_currency(DRAW_CURRENCY, 1)
+				draw_card()
+			)
+	)
 	update_energy_count()
 	draw_pile.shuffle()
 	update_discard_pile()

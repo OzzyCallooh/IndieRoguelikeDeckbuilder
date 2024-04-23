@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="CardDefn" load_steps=3 format=3 uid="uid://dfyje5fhuiupv"]
+[gd_resource type="Resource" script_class="CardDefn" load_steps=4 format=3 uid="uid://dfyje5fhuiupv"]
 
 [ext_resource type="Script" path="res://scripts/resources/card-definition.gd" id="1_lmfhb"]
 [ext_resource type="Resource" uid="uid://c8b8lpqvw3lh7" path="res://resources/currencies/energy.tres" id="1_n3qax"]
+[ext_resource type="Resource" uid="uid://c57n56qu502ck" path="res://resources/currencies/draw.tres" id="2_nr6id"]
 
 [resource]
 script = ExtResource("1_lmfhb")
-cost_currencies = {}
-gives_currencies = {
+cost_currencies = {
 ExtResource("1_n3qax"): 1
+}
+gives_currencies = {
+ExtResource("1_n3qax"): 2,
+ExtResource("2_nr6id"): 1
 }
 name = "Rock"

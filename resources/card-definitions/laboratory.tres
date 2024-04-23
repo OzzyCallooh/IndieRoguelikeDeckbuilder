@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardDefn" load_steps=4 format=3 uid="uid://bm4dn4xwwn2un"]
+
+[ext_resource type="Resource" uid="uid://c8b8lpqvw3lh7" path="res://resources/currencies/energy.tres" id="1_2xkxt"]
+[ext_resource type="Script" path="res://scripts/resources/card-definition.gd" id="1_sap1b"]
+[ext_resource type="Resource" uid="uid://c57n56qu502ck" path="res://resources/currencies/draw.tres" id="2_vmcy2"]
+
+[resource]
+script = ExtResource("1_sap1b")
+cost_currencies = {
+ExtResource("1_2xkxt"): 1
+}
+gives_currencies = {
+ExtResource("1_2xkxt"): 1,
+ExtResource("2_vmcy2"): 2
+}
+name = "Lab"
