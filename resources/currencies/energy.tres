@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Currency" load_steps=2 format=3 uid="uid://c8b8lpqvw3lh7"]
+
+[ext_resource type="Script" path="res://scripts/resources/currency.gd" id="1_bodm8"]
+
+[resource]
+script = ExtResource("1_bodm8")
+name = "Energy"
+symbol = "⚡"
+reset_on_turn_end = true
+given_at_start_of_turn = 3

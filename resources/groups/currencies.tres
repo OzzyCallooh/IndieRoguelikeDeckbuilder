@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ResourceGroup" load_steps=2 format=3 uid="uid://3a5oiukfm2ju"]
+
+[ext_resource type="Script" path="res://addons/godot_resource_groups/resource_group.gd" id="1_olwqp"]
+
+[resource]
+script = ExtResource("1_olwqp")
+base_folder = "res://resources/currencies"
+includes = Array[String]([])
+excludes = Array[String]([])
+paths = Array[String](["res://resources/currencies/coin.tres", "res://resources/currencies/energy.tres"])

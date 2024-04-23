@@ -1,7 +1,12 @@
-[gd_resource type="Resource" script_class="CardDefn" load_steps=2 format=3 uid="uid://8gwyr1c1r3ty"]
+[gd_resource type="Resource" script_class="CardDefn" load_steps=3 format=3 uid="uid://8gwyr1c1r3ty"]
 
 [ext_resource type="Script" path="res://scripts/resources/card-definition.gd" id="1_afas0"]
+[ext_resource type="Resource" uid="uid://bieore0iqaijp" path="res://resources/currencies/coin.tres" id="1_twlhy"]
 
 [resource]
 script = ExtResource("1_afas0")
+cost_currencies = {}
+gives_currencies = {
+ExtResource("1_twlhy"): 1
+}
 name = "Sand"

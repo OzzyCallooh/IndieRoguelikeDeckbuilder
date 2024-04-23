@@ -6,6 +6,11 @@ var CARDS = {
 	"sand": load("res://resources/card-definitions/sand.tres"),
 	"rock": load("res://resources/card-definitions/rock.tres")
 }
+var CURRENCIES = [
+	load("res://resources/currencies/energy.tres"),
+	load("res://resources/currencies/coin.tres")
+]
+
 var draw_pile: Array[CardDefn] = [
 	CARDS["grass"],
 	CARDS["grass"],
@@ -29,19 +34,18 @@ var discard_pile: Array[CardDefn] = []
 @onready var energy_count = $HUD/Control/Energy/VBoxContainer/EnergyCount
 @onready var in_play_node = $InPlay
 
-var energy = 3:
-	set(value):
-		energy = value
-		if energy_count:
-			energy_count.text = str(energy)
+var wallet: Wallet = null
 
 func start_turn():
-	energy = 3
 	draw_hand()
+	for currency: Currency in CURRENCIES:
+		wallet.give_currency(currency, currency.given_at_start_of_turn)
 
 func end_turn():
 	discard_hand()
-	start_turn()
+	for currency: Currency in CURRENCIES:
+		if currency.reset_on_turn_end:
+			wallet.set_currency(currency, 0)
 
 func draw_hand():
 	var tween = create_tween()
@@ -70,14 +74,15 @@ func update_draw_pile():
 func update_discard_pile():
 	discard_pile_node.visible = discard_pile.size() > 0
 	discard_count.text = str(discard_pile.size())
+	
+func can_play_card(card: Card):
+	return wallet.has_currencies(card.card_defn.cost_currencies)
 
 func play_card(card: Card):
-	if energy < card.card_defn.cost:
-		print("Not enough energy")
-		return
 	var i = hand.find(card)
 	assert(i != -1, "Card is not in hand")
-	energy -= card.card_defn.cost
+	wallet.take_currencies(card.card_defn.cost_currencies)
+	wallet.give_currencies(card.card_defn.gives_currencies)
 	hand.remove_at(i)
 	var tween = create_tween()
 	tween.tween_property(card, "transform", in_play_node.global_transform, 0.25)
@@ -131,13 +136,22 @@ func draw_card():
 	new_card.picked.connect(func ():
 		if hand.find(new_card) == -1:
 			return
-		play_card(new_card)
+		if can_play_card(new_card):
+			play_card(new_card)
+		else:
+			print("Can't play")
 	)
 	
 	update_draw_pile()
 
+func update_energy_count():
+	energy_count.text = wallet.to_string()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	wallet = Wallet.new()
+	wallet.currency_changed.connect(update_energy_count.unbind(2))
+	update_energy_count()
 	draw_pile.shuffle()
 	update_discard_pile()
 	update_draw_pile()
@@ -154,3 +168,4 @@ func _on_draw_pile_picked():
 
 func _on_end_turn_pressed():
 	end_turn()
+	start_turn()

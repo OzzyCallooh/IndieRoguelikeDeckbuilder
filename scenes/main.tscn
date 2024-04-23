@@ -119,8 +119,9 @@ grow_vertical = 2
 
 [node name="EnergyCount" type="Label" parent="HUD/Control/Energy/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 56
-text = "3"
+theme_override_font_sizes/font_size = 21
+text = "3⚡
+0🪙"
 horizontal_alignment = 1
 vertical_alignment = 1
 

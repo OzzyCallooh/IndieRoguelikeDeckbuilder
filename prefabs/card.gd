@@ -7,6 +7,7 @@ signal picked
 @onready var back = $Back
 @onready var card_name = $Front/Control/CardName
 @onready var card_cost = $Front/Control/Cost
+@onready var gives = $Front/Control/Gives
 var card_defn: CardDefn:
 	set(value):
 		card_defn = value
@@ -21,7 +22,9 @@ func update():
 		if card_name != null:
 			card_name.text = card_defn.name
 		if card_cost != null:
-			card_cost.text = str(card_defn.cost)
+			card_cost.text = card_defn.cost_to_string_as_symbols()
+		if gives != null:
+			gives.text = card_defn.gives_to_string_as_symbols()
 	else:
 		pass
 
