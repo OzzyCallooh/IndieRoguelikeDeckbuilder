@@ -19,6 +19,10 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_resource_groups/plugin.cfg")
+
 [input]
 
 quit={
