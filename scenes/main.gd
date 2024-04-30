@@ -2,7 +2,7 @@ extends Node2D
 
 var card_scene = load("res://prefabs/card.tscn")
 var CARDS = {
-	"grass": load("res://resources/card-definitions/grass.tres"),
+	"grass": load("res://resources/card-definitions/grass.tres"),                   
 	"sand": load("res://resources/card-definitions/sand.tres"),
 	"laboratory": load("res://resources/card-definitions/laboratory.tres"),
 	"rock": load("res://resources/card-definitions/rock.tres")
@@ -31,13 +31,13 @@ var draw_pile: Array[CardDefn] = [
 var hand: Array[Card] = []
 var discard_pile: Array[CardDefn] = []
 
-@onready var draw_pile_node = $DrawPile
-@onready var discard_pile_node = $DiscardPile
-@onready var hand_container_node = $Hand
-@onready var draw_count = $HUD/Control/DrawCount
-@onready var discard_count = $HUD/Control/DiscardCount
-@onready var energy_count = $HUD/Control/Energy/VBoxContainer/EnergyCount
-@onready var in_play_node = $InPlay
+@onready var draw_pile_node = $HUD/BottomRow/Draw/Control/Marker2D
+@onready var discard_pile_node = $HUD/BottomRow/Discard/Control/Marker2D
+@onready var hand_container_node = $HUD/BottomRow/Hand
+@onready var draw_count = $HUD/BottomRow/Draw/DrawCount
+@onready var discard_count = $HUD/BottomRow/Discard/DiscardCount
+@onready var energy_count = $HUD/BottomRow/Energy/VBoxContainer/EnergyCount
+@onready var in_play_node = $HUD/InPlay/Marker2D
 
 var wallet: Wallet = null
 
@@ -58,11 +58,14 @@ func discard_hand():
 		discard(hand[i])
 		hand.remove_at(i)
 
+func get_hand_node(i):
+	return hand_container_node.get_child(i).find_child("Marker2D")
+
 func restack_hand():
 	var tween = create_tween()
 	for i in range(hand.size()):
 		var card = hand[i]
-		var hand_node = hand_container_node.get_child(i)
+		var hand_node = get_hand_node(i)
 		tween.tween_property(card, "transform", hand_node.global_transform, 0.25)
 		tween = tween.parallel()
 
@@ -115,7 +118,7 @@ func draw_card():
 		print("Failed to draw")
 		return
 	var i = hand.size()
-	var hand_node = hand_container_node.get_child(i)
+	var hand_node = get_hand_node(i)
 	if hand_node == null:
 		return
 	if draw_pile.size() <= 0:
@@ -125,7 +128,7 @@ func draw_card():
 	
 	var new_card: Card = card_scene.instantiate() as Card
 	new_card.card_defn = card_defn
-	new_card.transform = draw_pile_node.transform
+	new_card.transform = draw_pile_node.global_transform
 	var tween = create_tween()
 	tween.tween_property(new_card, "transform", hand_node.global_transform, 0.25)
 	add_child(new_card)

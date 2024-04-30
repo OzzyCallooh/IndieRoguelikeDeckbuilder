@@ -3,11 +3,11 @@ class_name Card
 
 signal picked
 
-@onready var front = $Front
-@onready var back = $Back
-@onready var card_name = $Front/Control/CardName
-@onready var card_cost = $Front/Control/Cost
-@onready var gives = $Front/Control/Gives
+@onready var front = $Control/Front
+@onready var back = $Control/Back
+@onready var card_name = $Control/Front/CardName
+@onready var card_cost = $Control/Front/Cost
+@onready var gives = $Control/Front/Gives
 var card_defn: CardDefn:
 	set(value):
 		card_defn = value

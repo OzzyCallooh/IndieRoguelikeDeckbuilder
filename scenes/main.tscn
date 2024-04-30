@@ -12,43 +12,6 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_p2oma")
 
-[node name="DrawPile" type="Marker2D" parent="."]
-position = Vector2(56, 577)
-scale = Vector2(0.5, 0.5)
-
-[node name="Card" parent="DrawPile" instance=ExtResource("3_iwgg3")]
-
-[node name="DiscardPile" type="Marker2D" parent="."]
-position = Vector2(1099, 579)
-scale = Vector2(0.5, 0.5)
-
-[node name="Card" parent="DiscardPile" instance=ExtResource("3_iwgg3")]
-
-[node name="Hand" type="Node2D" parent="."]
-position = Vector2(532, 599)
-
-[node name="1" type="Marker2D" parent="Hand"]
-position = Vector2(-220, -54)
-rotation = -0.21383
-
-[node name="2" type="Marker2D" parent="Hand"]
-position = Vector2(-119, -72)
-rotation = -0.0942495
-
-[node name="3" type="Marker2D" parent="Hand"]
-position = Vector2(-3, -77)
-
-[node name="4" type="Marker2D" parent="Hand"]
-position = Vector2(111, -68)
-rotation = 0.148608
-
-[node name="5" type="Marker2D" parent="Hand"]
-position = Vector2(210, -46)
-rotation = 0.278989
-
-[node name="InPlay" type="Marker2D" parent="."]
-position = Vector2(597, 274)
-
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -57,67 +20,143 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_2s5ef")
 
-[node name="ColorRect" type="ColorRect" parent="BackgroundLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -158.0
-offset_right = 114.0
-grow_vertical = 0
-color = Color(0.313726, 0.313726, 0.478431, 1)
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="ColorRect2" type="ColorRect" parent="BackgroundLayer"]
-anchors_preset = 3
-anchor_left = 1.0
+[node name="BottomRow" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -114.0
-offset_top = -158.0
-grow_horizontal = 0
+offset_top = -179.0
+grow_horizontal = 2
 grow_vertical = 0
-color = Color(0.313726, 0.313726, 0.478431, 1)
+mouse_filter = 2
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="Draw" type="Control" parent="HUD/BottomRow"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 131.0
+grow_vertical = 2
 
-[node name="Control" type="Control" parent="HUD"]
-layout_mode = 3
+[node name="Background" type="ColorRect" parent="HUD/BottomRow/Draw"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+color = Color(0.313726, 0.313726, 0.478431, 0.737255)
 
-[node name="Energy" type="ColorRect" parent="HUD/Control"]
+[node name="DrawCount" type="Label" parent="HUD/BottomRow/Draw"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 345.0
-offset_top = -129.0
-offset_right = 438.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 36.0
 grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.313726, 0.313726, 0.478431, 1)
+theme_override_font_sizes/font_size = 26
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/Energy"]
+[node name="Control" type="Control" parent="HUD/BottomRow/Draw"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -39.0
-offset_top = -56.0
-offset_right = 39.0
-offset_bottom = 56.0
+offset_top = 13.5
+offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="EnergyCount" type="Label" parent="HUD/Control/Energy/VBoxContainer"]
+[node name="Marker2D" type="Marker2D" parent="HUD/BottomRow/Draw/Control"]
+scale = Vector2(0.756055, 0.756055)
+
+[node name="Card" parent="HUD/BottomRow/Draw/Control/Marker2D" instance=ExtResource("3_iwgg3")]
+
+[node name="Discard" type="Control" parent="HUD/BottomRow"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -129.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="HUD/BottomRow/Discard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.313726, 0.313726, 0.478431, 0.737255)
+
+[node name="DiscardCount" type="Label" parent="HUD/BottomRow/Discard"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 36.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="HUD/BottomRow/Discard"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 13.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Marker2D" type="Marker2D" parent="HUD/BottomRow/Discard/Control"]
+scale = Vector2(0.756055, 0.756055)
+
+[node name="Card" parent="HUD/BottomRow/Discard/Control/Marker2D" instance=ExtResource("3_iwgg3")]
+
+[node name="Energy" type="Control" parent="HUD/BottomRow"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -272.0
+offset_right = -143.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="HUD/BottomRow/Energy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.313726, 0.313726, 0.478431, 0.737255)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/BottomRow/Energy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 11.0
+offset_right = -8.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnergyCount" type="Label" parent="HUD/BottomRow/Energy/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "3⚡
@@ -125,45 +164,121 @@ text = "3⚡
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EndTurn" type="Button" parent="HUD/Control/Energy/VBoxContainer"]
+[node name="Control" type="Control" parent="HUD/BottomRow/Energy/VBoxContainer"]
+custom_minimum_size = Vector2(0, 18.625)
+layout_mode = 2
+
+[node name="EndTurn" type="Button" parent="HUD/BottomRow/Energy/VBoxContainer"]
 layout_mode = 2
 text = "End Turn"
 
-[node name="DrawCount" type="Label" parent="HUD/Control"]
+[node name="Hand" type="HBoxContainer" parent="HUD/BottomRow"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -552.0
-offset_top = 150.0
-offset_right = -488.0
-offset_bottom = 227.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 143.0
+offset_right = -284.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 26
-text = "10"
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 2
 
-[node name="DiscardCount" type="Label" parent="HUD/Control"]
+[node name="1" type="Control" parent="HUD/BottomRow/Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="HUD/BottomRow/Hand/1"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 492.0
-offset_top = 153.0
-offset_right = 556.0
-offset_bottom = 230.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 26
-text = "10"
-horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="HUD/BottomRow/Hand/1/Control"]
+
+[node name="2" type="Control" parent="HUD/BottomRow/Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="HUD/BottomRow/Hand/2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Marker2D" type="Marker2D" parent="HUD/BottomRow/Hand/2/Control"]
+
+[node name="3" type="Control" parent="HUD/BottomRow/Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="HUD/BottomRow/Hand/3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Marker2D" type="Marker2D" parent="HUD/BottomRow/Hand/3/Control"]
+
+[node name="4" type="Control" parent="HUD/BottomRow/Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="HUD/BottomRow/Hand/4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Marker2D" type="Marker2D" parent="HUD/BottomRow/Hand/4/Control"]
+
+[node name="5" type="Control" parent="HUD/BottomRow/Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="HUD/BottomRow/Hand/5"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Marker2D" type="Marker2D" parent="HUD/BottomRow/Hand/5/Control"]
+
+[node name="InPlay" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Marker2D" type="Marker2D" parent="HUD/InPlay"]
 
 [node name="DrawSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_4r5a8")
@@ -185,5 +300,6 @@ max_polyphony = 4
 script = ExtResource("8_fb3wo")
 quit_action = "quit"
 
-[connection signal="picked" from="DrawPile/Card" to="." method="_on_draw_pile_picked"]
-[connection signal="pressed" from="HUD/Control/Energy/VBoxContainer/EndTurn" to="." method="_on_end_turn_pressed"]
+[connection signal="picked" from="HUD/BottomRow/Draw/Control/Marker2D/Card" to="." method="_on_draw_pile_picked"]
+[connection signal="picked" from="HUD/BottomRow/Discard/Control/Marker2D/Card" to="." method="_on_draw_pile_picked"]
+[connection signal="pressed" from="HUD/BottomRow/Energy/VBoxContainer/EndTurn" to="." method="_on_end_turn_pressed"]
